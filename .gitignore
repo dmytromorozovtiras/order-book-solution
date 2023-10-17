@@ -30,3 +30,4 @@ replay_pid*
 # input and output files used for the project
 .txt
 
+/bin/

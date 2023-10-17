@@ -8,108 +8,53 @@ import java.io.IOException;
 
 public class Main {
 
-	
-	////////////////////////
-	
-	
 	static StringBuilder sb = new StringBuilder();
 	public static void main(String[] args) throws InterruptedException, IOException {
-//		
-//		StringBuilder sb = new StringBuilder();
-//		sb.append("hello").append(" ").append("ben");
-//		System.out.println(sb.toString());
 		
-//		File file = new File("F:/ABC.TXT");
-//		FileWriter fileWriter = new FileWriter(file,true);
-//		filewriter.write("\r\n");
-//		rhyme = line1 + System.lineSeparator() + line2;
+		long start = System.currentTimeMillis();
 		
-		
+		Main m = new Main();
 		BufferedReader br = new BufferedReader(new FileReader("src/input.txt"));
 		String line;
+		int counter = 0;
 		 while ((line = br.readLine()) != null) {
-//	            resultStringBuilder.append(line).append("\n");
-			 analyzeLineFromFile(line);
+			 counter++;
+			 m.analyzeLineFromFile(line, counter);
 	     }
 		 br.close();
 		 
-		 writeToTheFile(sb.toString().trim()); 
-		 
-		 
-		 String s = new Main().getNumberInString17(2);
-			System.out.println(s);
-
-			String s1 = new Main().getNumberInString11(5);
-			System.out.println(s1);
-		  
+		 m.writeToTheFile(sb.toString().trim()); 
+		 long end = System.currentTimeMillis();
+		 System.out.println("\n" + (end - start) + " ms");
 	}//Main
 	
-	public static void analyzeLineFromFile(String currentLine) throws IOException {
+	public  void analyzeLineFromFile(String currentLine, int numberOfLine) throws IOException {
 		String[] splitedCurrentLine = currentLine.split(",");
 		StringBuilder subSb = new StringBuilder();
 		for(int i = 0; i < splitedCurrentLine.length; i++) {
 			if(splitedCurrentLine[i].equals("ask")) {
-				
 				subSb.append(splitedCurrentLine[i]).append(" ");
-				
-//				System.out.println(splitedCurrentLine[i]);
-				System.out.println("hfhfhf");
-			}
-			
+				System.out.println(splitedCurrentLine[i] + " " + subSb.length());
+			}	
 		}
+		
 		if(subSb.length() != 0) {
-			sb.append(subSb.append(System.lineSeparator()));
+			subSb.append(System.lineSeparator());
+			subSb.reverse().append(" " + reverseInt(numberOfLine));
+			sb.append(subSb.reverse());
 		}
 	}
-
-	public void addLineSeperator(StringBuilder sb) {
-		sb.append(System.lineSeparator());
+	
+	private StringBuilder reverseInt(int toReverse) {
+		return new StringBuilder("" + toReverse).reverse();
 	}
 	
-	
-	public static void writeToTheFile(String wordToWriting) throws IOException {
+	public void writeToTheFile(String wordToWriting) throws IOException {
+		System.out.println(reverseInt(100));
 		 File file = new File("src/output.txt");
 		 FileWriter myWriter = new FileWriter(file);
 	      myWriter.append(wordToWriting);
 	      myWriter.close();
-	}
-	
-	
-	////////////////////////
-	
-	
-	
-	
-
-	
-	private String getNumberInString17(int number) {
-	    return switch (number) {
-	        case 1 -> "One";
-	        case 2 -> "Two";
-	        case 3 -> "Three";
-	        case 4 -> "Four";
-	        case 5 -> "Five";
-	        default -> "Nil";
-	    };
-	}
-	
-	
-	private String getNumberInString11(int number) {
-		String result = "";
-		switch(number) {
-			case 1 : result = "One";
-			break;
-			case 2 : result = "Two";
-			break;
-			case 3 : result = "Three";
-			break;
-			case 4 : result = "Four";
-			break;
-			case 5 : result = "Five";
-			break;
-			default : result = "Five";
-		}
-		return result;
 	}
 
 }
